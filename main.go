@@ -182,8 +182,6 @@ func main() {
 	pres.ShowTimestamps = *showTimestamps
 	pres.ShowPlayground = *showPlayground
 	pres.DeclLinks = *declLinks
-	pres.SrcMode = false
-	pres.HTMLMode = false
 	pres.URLForSrcPos = srcPosLinkFunc
 
 	var tmpl *template.Template
@@ -207,7 +205,7 @@ func main() {
 // Note that it may add a /target path to fs.
 func writeOutput(w io.Writer, fs vfs.NameSpace, pres *godoc.Presentation, args []string, packageText *template.Template) error {
 	path := args[0]
-	srcMode := pres.SrcMode
+	srcMode := false
 	cmdMode := strings.HasPrefix(path, cmdPathPrefix)
 	if strings.HasPrefix(path, srcPathPrefix) {
 		path = strings.TrimPrefix(path, srcPathPrefix)
@@ -225,9 +223,9 @@ func writeOutput(w io.Writer, fs vfs.NameSpace, pres *godoc.Presentation, args [
 		// the fake built-in package contains unexported identifiers
 		mode = godoc.NoFiltering | godoc.NoTypeAssoc
 	}
-	if pres.AllMode {
-		mode |= godoc.NoFiltering
-	}
+	// if pres.AllMode {
+	// 	mode |= godoc.NoFiltering
+	// }
 	if srcMode {
 		// only filter exports if we don't have explicit command-line filter arguments
 		if len(args) > 1 {
