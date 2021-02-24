@@ -1,7 +1,7 @@
 all: examples readme
 
 readme:
-	godoc2md github.com/github.com/GlenDC > README.md
+	godoc2md github.com/Yarn-e/godoc2md > README.md
 
 examples:
 	godoc2md github.com/kr/fs > examples/fs/README.md
